@@ -1,5 +1,5 @@
 {
-  "name": "customerproducer",
+  "name": "customerconsumer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,8 +13,10 @@
     "axios": "^1.7.2",
     "express": "^4.19.2",
     "kafkajs": "^2.2.4",
+    "mongodb": "^5.9.2",
     "reflect-metadata": "^0.2.2",
     "routing-controllers": "^0.10.4",
+    "typeorm": "^0.3.20",
     "typescript": "^5.5.3"
   },
   "devDependencies": {

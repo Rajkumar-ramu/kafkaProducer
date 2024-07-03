@@ -1,6 +1,9 @@
 import express from 'express';
 import { useExpressServer } from 'routing-controllers';
-import {Thirdparty} from './controllers/thirdpartyaxios'
+import {Products} from './controllers/customer';
+import { runConsumer } from './kafka/consumer';
+import { AppDataSource } from './config/data';
+
 
 class App {
     app: any
@@ -12,7 +15,7 @@ class App {
   
     setupRoutes(){
         useExpressServer(this.app, {
-            controllers: [Thirdparty]
+            controllers: [Products]
           });
     }
     middleware(){
@@ -20,11 +23,16 @@ class App {
     }
     
 
-    start(){
-        this.app.listen(4000,()=>{
-            console.log('Server Started on 4000');
-            
-        })
+    async start(){
+        await AppDataSource.initialize();
+        console.log('Connected to MongoDB');
+  
+        this.app.listen(4000, () => {
+          console.log('Server Started on 4000');
+        });
+  
+        await runConsumer();
+        console.log('Kafka consumer started');
     }
 }
 
